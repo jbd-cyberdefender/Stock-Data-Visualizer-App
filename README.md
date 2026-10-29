@@ -1,1 +1,1 @@
-### Stock-Data-Visualizer-App" 
+### Stock-Data-Visualizer-App
