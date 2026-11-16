@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stock Data Visualizer</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f4f7f6; color: #333; }
+        .container { max-width: 900px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #0056b3; }
+        form { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
+        .form-group { display: flex; flex-direction: column; }
+        .form-group.full-width { grid-column: span 2; }
+        label { font-weight: bold; margin-bottom: 5px; }
+        select, input { padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+        button { grid-column: span 2; background-color: #0056b3; color: white; border: none; padding: 12px; font-size: 16px; border-radius: 4px; cursor: pointer; }
+        button:hover { background-color: #004494; }
+        .error { color: #d9534f; background: #fdf7f7; border: 1px solid #f5c6cb; padding: 10px; border-radius: 4px; margin-top: 20px; text-align: center; }
+        .chart-container { margin-top: 30px; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Stock Data Visualizer</h1>
+        
+        {% if error %}
+            <div class="error"><strong>Error:</strong> {{ error }}</div>
+        {% endif %}
+
+        <form method="POST">
+            <div class="form-group">
+                <label for="symbol">Stock Symbol:</label>
+                <select id="symbol" name="symbol" required>
+                    <option value="" disabled selected>Select a stock</option>
+                    {% for stock in stocks %}
+                        <option value="{{ stock.symbol }}">{{ stock.symbol }} - {{ stock.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="chart_type">Chart Type:</label>
+                <select id="chart_type" name="chart_type">
+                    <option value="Line">Line Chart</option>
+                    <option value="Bar">Bar Chart</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="time_series">Time Series:</label>
+                <select id="time_series" name="time_series">
+                    <option value="TIME_SERIES_INTRADAY">Intraday (60min)</option>
+                    <option value="TIME_SERIES_DAILY" selected>Daily</option>
+                    <option value="TIME_SERIES_WEEKLY">Weekly</option>
+                    <option value="TIME_SERIES_MONTHLY">Monthly</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="start_date">Start Date:</label>
+                <input type="date" id="start_date" name="start_date" value="2024-01-01" required>
+            </div>
+
+            <div class="form-group full-width">
+                <label for="end_date">End Date:</label>
+                <input type="date" id="end_date" name="end_date" value="2024-12-31" required>
+            </div>
+
+            <button type="submit">Generate Chart</button>
+        </form>
+
+        {% if svg_data %}
+            <div class="chart-container">
+                <h2>{{ chart_title }}</h2>
+                <div>{{ svg_data | safe }}</div>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
