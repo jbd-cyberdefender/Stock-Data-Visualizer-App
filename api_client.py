@@ -1,4 +1,4 @@
-"""Requests stock data from the Alpha Vantage API."""
+
 import os
 import requests
 import time
