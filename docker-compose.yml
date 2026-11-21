@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 version: '3.8'
 
 services:
@@ -6,4 +7,14 @@ services:
     ports:
       - "5000:5000"
     environment:
+=======
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+>>>>>>> ae94ff0b619a36c8f8baa0a2ffd4cbc9110bba5b
       - ALPHA_VANTAGE_API_KEY=M4LO72DSX4KUX4S4

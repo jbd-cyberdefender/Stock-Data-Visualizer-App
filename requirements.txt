@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 Flask==3.0.2
 requests
 pygal
 python-dotenv
+=======
+requests
+pygal
+python-dotenv
+>>>>>>> ae94ff0b619a36c8f8baa0a2ffd4cbc9110bba5b
